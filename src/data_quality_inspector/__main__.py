@@ -1,6 +1,7 @@
 import argparse
-import csv
 from pathlib import Path
+
+import pandas as pd
 
 
 def main() -> None:
@@ -15,14 +16,13 @@ def main() -> None:
     if not csv_path.is_file():
         parser.error(f"File not found: {csv_path}")
 
-    with csv_path.open(encoding="utf-8", newline="") as file:
-        reader = csv.reader(file)
-        column_names = next(reader)
-        rows = list(reader)
+    dataframe = pd.read_csv(csv_path)
 
-    print(f"Rows: {len(rows)}")
-    print(f"Columns: {len(column_names)}")
-    print(f"Column names: {', '.join(column_names)}")
+    print("Dataset loaded successfully")
+    print()
+    print(f"Rows: {len(dataframe)}")
+    print(f"Columns: {len(dataframe.columns)}")
+    print(f"Column names: {', '.join(dataframe.columns)}")
 
 
 if __name__ == "__main__":
