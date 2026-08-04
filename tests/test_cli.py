@@ -47,6 +47,7 @@ def test_duplicate_rows_are_reported(
 
     assert "Duplicate rows: 1" in captured.out
 
+
 def test_constant_columns_are_reported(
     monkeypatch,
     capsys,
@@ -54,11 +55,7 @@ def test_constant_columns_are_reported(
 ) -> None:
     csv_file = tmp_path / "people.csv"
 
-    csv_file.write_text(
-        "name,age,country\n"
-        "Anna,21,Germany\n"
-        "Ben,22,Germany\n"
-    )
+    csv_file.write_text("name,age,country\nAnna,21,Germany\nBen,22,Germany\n")
 
     monkeypatch.setattr(
         sys,
@@ -73,6 +70,7 @@ def test_constant_columns_are_reported(
     assert "Constant columns:" in captured.out
     assert "- country: Germany" in captured.out
 
+
 def test_invalid_age_values_are_reported(
     monkeypatch,
     capsys,
@@ -80,14 +78,7 @@ def test_invalid_age_values_are_reported(
 ) -> None:
     csv_file = tmp_path / "people.csv"
 
-    csv_file.write_text(
-        "name,age\n"
-        "Anna,22\n"
-        "John,-5\n"
-        "Sara,unknown\n"
-        "Mia,\n"
-        "Leo,150\n"
-    )
+    csv_file.write_text("name,age\nAnna,22\nJohn,-5\nSara,unknown\nMia,\nLeo,150\n")
 
     monkeypatch.setattr(
         sys,

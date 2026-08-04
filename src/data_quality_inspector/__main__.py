@@ -73,13 +73,15 @@ def main() -> None:
     if below_minimum_count > 0:
         print(
             f"- age: {below_minimum_count} value(s) below "
-            f'the allowed minimum of {age_rules["minimum"]}'
+            f"the allowed minimum of {age_rules['minimum']}"
         )
 
     if above_maximum_count > 0:
         print(
             f"- age: {above_maximum_count} value(s) above "
-            f'the allowed maximum of {age_rules["maximum"]}'
+            f"the allowed maximum of {age_rules['maximum']}"
         )
+
+
 if __name__ == "__main__":
     main()
