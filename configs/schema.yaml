@@ -1,0 +1,5 @@
+columns:
+  age:
+    type: integer
+    minimum: 0
+    maximum: 120

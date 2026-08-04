@@ -5,6 +5,7 @@ description = "A command-line tool that inspects CSV datasets for data-quality p
 requires-python = ">=3.10"
 dependencies = [
     "pandas",
+    "PyYAML",
 ]
 [project.optional-dependencies]
 dev = [

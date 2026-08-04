@@ -72,3 +72,34 @@ def test_constant_columns_are_reported(
 
     assert "Constant columns:" in captured.out
     assert "- country: Germany" in captured.out
+
+def test_invalid_age_values_are_reported(
+    monkeypatch,
+    capsys,
+    tmp_path,
+) -> None:
+    csv_file = tmp_path / "people.csv"
+
+    csv_file.write_text(
+        "name,age\n"
+        "Anna,22\n"
+        "John,-5\n"
+        "Sara,unknown\n"
+        "Mia,\n"
+        "Leo,150\n"
+    )
+
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        ["data_quality_inspector", str(csv_file)],
+    )
+
+    main()
+
+    captured = capsys.readouterr()
+
+    assert "Suspicious values:" in captured.out
+    assert "- age: 1 non-numeric value(s)" in captured.out
+    assert "- age: 1 value(s) below the allowed minimum of 0" in captured.out
+    assert "- age: 1 value(s) above the allowed maximum of 120" in captured.out

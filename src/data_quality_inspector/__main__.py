@@ -1,5 +1,6 @@
 import argparse
 from pathlib import Path
+import yaml
 
 import pandas as pd
 
@@ -48,6 +49,37 @@ def main() -> None:
             constant_value = dataframe[column_name].dropna().iloc[0]
             print(f"- {column_name}: {constant_value}")
 
-    
+    schema_path = Path("configs/schema.yaml")
+
+    with schema_path.open(encoding="utf-8") as file:
+        schema = yaml.safe_load(file)
+
+    age_rules = schema["columns"]["age"]
+
+    age_values = pd.to_numeric(dataframe["age"], errors="coerce")
+    invalid_type_values = dataframe["age"].notna() & age_values.isna()
+
+    below_minimum = age_values < age_rules["minimum"]
+    above_maximum = age_values > age_rules["maximum"]
+    invalid_type_count = invalid_type_values.sum()
+    below_minimum_count = below_minimum.sum()
+    above_maximum_count = above_maximum.sum()
+
+    print("\nSuspicious values:")
+
+    if invalid_type_count > 0:
+        print(f"- age: {invalid_type_count} non-numeric value(s)")
+
+    if below_minimum_count > 0:
+        print(
+            f"- age: {below_minimum_count} value(s) below "
+            f'the allowed minimum of {age_rules["minimum"]}'
+        )
+
+    if above_maximum_count > 0:
+        print(
+            f"- age: {above_maximum_count} value(s) above "
+            f'the allowed maximum of {age_rules["maximum"]}'
+        )
 if __name__ == "__main__":
     main()
