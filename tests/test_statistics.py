@@ -1,6 +1,5 @@
 import pytest
 
-
 from data_quality_inspector.statistics.manual import (
     mean,
     median,

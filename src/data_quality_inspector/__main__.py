@@ -1,8 +1,8 @@
 import argparse
 from pathlib import Path
-import yaml
 
 import pandas as pd
+import yaml
 
 
 def main() -> None:
