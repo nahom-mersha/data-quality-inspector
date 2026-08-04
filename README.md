@@ -1,16 +1,10 @@
-# Reusable AI Template
+# Data Quality Inspector
 
-## Features
+A Python command-line tool that inspects CSV datasets and reports common data-quality problems.
 
-- src layout
-- pytest
-- Ruff formatting and linting
-- Logging
-- YAML configuration
-- GitHub Actions CI
-- Docker support
+The project will check for issues such as missing values, duplicate rows, inconsistent text, and unusual values.
 
-## Installation
+## Current progress
 
-```bash
-pip install -e ".[dev]"
+- Project structure created
+- Python package renamed to `data_quality_inspector`
