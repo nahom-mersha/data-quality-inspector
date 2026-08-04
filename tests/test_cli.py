@@ -46,3 +46,29 @@ def test_duplicate_rows_are_reported(
     captured = capsys.readouterr()
 
     assert "Duplicate rows: 1" in captured.out
+
+def test_constant_columns_are_reported(
+    monkeypatch,
+    capsys,
+    tmp_path,
+) -> None:
+    csv_file = tmp_path / "people.csv"
+
+    csv_file.write_text(
+        "name,age,country\n"
+        "Anna,21,Germany\n"
+        "Ben,22,Germany\n"
+    )
+
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        ["data_quality_inspector", str(csv_file)],
+    )
+
+    main()
+
+    captured = capsys.readouterr()
+
+    assert "Constant columns:" in captured.out
+    assert "- country: Germany" in captured.out

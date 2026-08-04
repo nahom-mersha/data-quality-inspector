@@ -39,6 +39,15 @@ def main() -> None:
 
     print(f"\nDuplicate rows: {duplicate_count}")
 
+    unique_value_counts = dataframe.nunique()
 
+    print("\nConstant columns:")
+
+    for column_name, unique_count in unique_value_counts.items():
+        if unique_count == 1:
+            constant_value = dataframe[column_name].dropna().iloc[0]
+            print(f"- {column_name}: {constant_value}")
+
+    
 if __name__ == "__main__":
     main()
