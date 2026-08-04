@@ -22,3 +22,27 @@ def test_missing_file_shows_clear_error(
 
     captured = capsys.readouterr()
     assert "File not found: not_a_real_file.csv" in captured.err
+
+
+def test_duplicate_rows_are_reported(
+    monkeypatch,
+    capsys,
+    tmp_path,
+) -> None:
+    csv_file = tmp_path / "people.csv"
+
+    csv_file.write_text(
+        "age,income,city,student\n22,25000,Berlin,no\n22,25000,Berlin,no\n"
+    )
+
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        ["data_quality_inspector", str(csv_file)],
+    )
+
+    main()
+
+    captured = capsys.readouterr()
+
+    assert "Duplicate rows: 1" in captured.out

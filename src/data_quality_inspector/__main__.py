@@ -35,6 +35,10 @@ def main() -> None:
                 f"- {column_name}: {missing_count} missing value "
                 f"({missing_percentage:.1f}%)"
             )
+    duplicate_count = dataframe.duplicated().sum()
+
+    print(f"\nDuplicate rows: {duplicate_count}")
+
 
 if __name__ == "__main__":
     main()
