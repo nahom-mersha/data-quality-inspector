@@ -7,9 +7,13 @@ dependencies = [
     "pandas",
     "PyYAML",
 ]
+
 [project.optional-dependencies]
 dev = [
     "pytest",
     "ruff",
     "pre-commit",
 ]
+
+[tool.ruff.lint]
+select = ["E", "F", "I"]

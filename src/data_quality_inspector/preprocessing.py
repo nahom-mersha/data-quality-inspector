@@ -1,3 +1,6 @@
+import random
+from typing import TypeVar
+
 from data_quality_inspector.statistics.manual import mean, standard_deviation
 
 
@@ -32,9 +35,6 @@ def standardize(values: list[float]) -> list[float]:
 
     return [(value - average) / spread for value in values]
 
-
-import random
-from typing import TypeVar
 
 T = TypeVar("T")
 
